@@ -16,8 +16,8 @@ from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau, C
 # Thoroughly comment your code to make it easy to follow
 
 if __name__ == "__main__": 
-	"""#read dataset
-	data = pd.read_csv('Assignment3/assignment 3/data/q2_dataset.csv')
+	#read dataset
+	"""data = pd.read_csv('data/q2_dataset.csv')
 	data.columns = data.columns.str.strip()
 
 	#create targets from Opening price
@@ -63,13 +63,12 @@ if __name__ == "__main__":
 	#split the data into train and test set
 	train, test = train_test_split(data, test_size=0.30, random_state=0)
 	#save the data
-	train.to_csv('Assignment3/assignment 3/data/train_data_RNN.csv',index=False)
-	test.to_csv('Assignment3/assignment 3/data/test_data_RNN.csv',index=False)"""
+	train.to_csv('data/train_data_RNN.csv',index=False)
+	test.to_csv('data/test_data_RNN.csv',index=False)"""
 	#end comments
 
 	# 1. load your training data
-	data_train = pd.read_csv('Assignment3/assignment 3/data/train_data_RNN.csv')
-	data_test = pd.read_csv('Assignment3/assignment 3/data/test_data_RNN.csv')
+	data_train = pd.read_csv('data/train_data_RNN.csv')
 
 	#separate features and target
 	X_train = data_train.drop(['Date','target'], axis = 1)
@@ -80,9 +79,6 @@ if __name__ == "__main__":
 	scaler=MinMaxScaler(feature_range=(0,1))
 	X_train=scaler.fit_transform(X_train)
 
-	#saving the scaler to apply it on the test dataset
-	with open('scaler_RNN_model','wb') as file_pick:
-		pickle.dump(scaler,file_pick)
 
 	#numpy array conversion
 	X_train=np.array(X_train)
@@ -111,4 +107,4 @@ if __name__ == "__main__":
 	#print final training loss here
 	print('Final Training Loss: \t', history.history["loss"][-1] )
 	# 3. Save your model
-	model.save('Assignment3/assignment 3/models/Group3_RNN_model.h5')
+	model.save('models/Group3_RNN_model.h5')

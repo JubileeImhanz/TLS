@@ -20,10 +20,10 @@ from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau, C
 
 if __name__ == "__main__":
 	# 1. Load your saved model
-	model = tf.keras.models.load_model('Assignment3/assignment 3/models/Group3_RNN_model.h5')
+	model = tf.keras.models.load_model('models/Group3_RNN_model.h5')
 
 	# 2. Load your testing data
-	data_test = pd.read_csv('test_data_RNN.csv')
+	data_test = pd.read_csv('data/test_data_RNN.csv')
 
 	#separate features and target
 	X_test_date = data_test
@@ -41,11 +41,7 @@ if __name__ == "__main__":
 	X_test = X_test.reshape(X_test.shape[0],X_test.shape[1] , 1)
 	# 3. Run prediction on the test data and output required plot and loss
 	y_pred = model.predict(X_test)
-
-	#print Test Loss
-	print('Test Loss:\t ', mean_squared_error(y_pred, y_test))
-	#comment before submission
-	print('training MSE', model.evaluate(X_train, y_train, verbose=0))
+	print('Test Loss \t', model.evaluate(X_test, y_test, verbose=0))
 	#create dataframe for plotting against date
 	result_array=pd.DataFrame({'y_test':y_test, 'y_predicted':y_pred.ravel(),'Date':X_test_date["Date"]},index=None)
 	#result_array=result_array.reset_index(drop=True, inplace=False)
