@@ -74,14 +74,11 @@ if __name__ == "__main__":
 	#separate features and target
 	X_train = data_train.drop(['Date','target'], axis = 1)
 	y_train = data_train['target']
-	X_test_date = data_test
-	X_test = data_test.drop(['Date','target'], axis = 1)
-	y_test = data_test['target']
+
 
 	#preprocessing
 	scaler=MinMaxScaler(feature_range=(0,1))
 	X_train=scaler.fit_transform(X_train)
-	X_test=scaler.transform(X_test)
 
 	#saving the scaler to apply it on the test dataset
 	with open('scaler_RNN_model','wb') as file_pick:
@@ -89,11 +86,9 @@ if __name__ == "__main__":
 
 	#numpy array conversion
 	X_train=np.array(X_train)
-	X_test=np.array(X_test)
 
 	# reshape input to be [samples, time steps, features] which is required for LSTM
 	X_train =X_train.reshape(X_train.shape[0],X_train.shape[1] , 1)
-	X_test = X_test.reshape(X_test.shape[0],X_test.shape[1] , 1)
 
 	#model construction
 	model = tf.keras.models.Sequential([
@@ -112,7 +107,7 @@ if __name__ == "__main__":
 	# 2. Train your network
 	# 		Make sure to print your training loss within training to show progress
 	# 		Make sure you print the final training loss
-	history = model.fit(X_train,y_train,validation_data=(X_test,y_test),epochs=2000,batch_size=64,verbose=1)
+	history = model.fit(X_train,y_train,validation_split=0.05,epochs=1500,batch_size=64,verbose=1)
 	#print final training loss here
 	print('Final Training Loss: \t', history.history["loss"][-1] )
 	# 3. Save your model

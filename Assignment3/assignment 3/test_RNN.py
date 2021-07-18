@@ -44,6 +44,8 @@ if __name__ == "__main__":
 
 	#print Test Loss
 	print('Test Loss:\t ', mean_squared_error(y_pred, y_test))
+	#comment before submission
+	print('training MSE', model.evaluate(X_train, y_train, verbose=0))
 	#create dataframe for plotting against date
 	result_array=pd.DataFrame({'y_test':y_test, 'y_predicted':y_pred.ravel(),'Date':X_test_date["Date"]},index=None)
 	#result_array=result_array.reset_index(drop=True, inplace=False)
