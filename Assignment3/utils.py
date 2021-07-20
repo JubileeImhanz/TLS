@@ -24,10 +24,13 @@ def _read_text_file(path):
     return text
 
 def load_data(train = True):
+    """
+    loads the IMDB dataset from data/aclImdb folder 
+    """
     
     train_test_path = "train" if train else "test"
 
-    dir_base = os.path.join("aclImdb", train_test_path)
+    dir_base = os.path.join("data/aclImdb", train_test_path)
 
     path_pattern_pos = os.path.join(dir_base, "pos", "*.txt")
     path_pattern_neg = os.path.join(dir_base, "neg", "*.txt")
